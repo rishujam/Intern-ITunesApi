@@ -33,6 +33,14 @@ class MainActivity : AppCompatActivity() {
         val  viewModelProviderFactory = SongViewModelProviderFactory(songRepository)
         viewModel = ViewModelProvider(this,viewModelProviderFactory).get(SongViewModel::class.java)
 
+        binding.button.setOnClickListener {
+            if(binding.etSearch.text.isNotEmpty()){
+                viewModel.getSongs(binding.etSearch.text.toString(),"US")
+            }
+        }
+
+
+
         viewModel.songs.observe(this, Observer { response ->
             when(response){
                 is Resource.Success -> {
